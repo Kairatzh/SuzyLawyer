@@ -1,0 +1,23 @@
+
+__pycache__/
+*.py[cod]
+*.pyd
+*.so
+*$py.class
+
+.venv/
+venv/
+ENV/
+env/
+
+.idea/
+
+.env
+.env.*
+
+
+# FAISS / Vector DB
+src/vectordb/
+*.faiss
+*.pkl
+

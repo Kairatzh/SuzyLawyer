@@ -1,0 +1,11 @@
+aiogram==3.20.0.post0
+aiohttp==3.11.18
+fastapi==0.115.12
+langchain==0.3.25
+langchain_community==0.3.25
+langchain_core==0.3.65
+langchain_huggingface==0.3.0
+pydantic==2.11.7
+python-dotenv==1.1.0
+sentence_transformers==4.1.0
+uvicorn==0.34.3
