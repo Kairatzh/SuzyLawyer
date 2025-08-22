@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  suzy-lawyer-api:
+    build: .
+    container_name: suzy-lawyer-api
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONPATH=/app
+      - FASTAPI_HOST=http://localhost:8000
+    env_file:
+      - .env
+    volumes:
+      - ./src:/app/src
+      - ./src/vectordb:/app/src/vectordb
+    command: uvicorn src.app.main:app --host 0.0.0.0 --port 8000 --reload
+    restart: unless-stopped
+    networks:
+      - suzy-lawyer-network
+
+  suzy-lawyer-bot:
+    build: .
+    container_name: suzy-lawyer-bot
+    environment:
+      - PYTHONPATH=/app
+      - FASTAPI_HOST=http://suzy-lawyer-api:8000
+    env_file:
+      - .env
+    volumes:
+      - ./src:/app/src
+    command: python src/app/bot.py
+    restart: unless-stopped
+    depends_on:
+      - suzy-lawyer-api
+    networks:
+      - suzy-lawyer-network
+
+networks:
+  suzy-lawyer-network:
+    driver: bridge

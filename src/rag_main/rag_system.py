@@ -16,11 +16,11 @@ logger = logging.getLogger(__name__)
 
 @dataclass
 class RAGConfig:
-    pdf_path: str = "C:/Users/User/Desktop/SuzyLawyer/src/datasets/kodeks.pdf"
-    vector_store_path: str = "/src/vectordb"
-    embedding_model: str = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
-    chunk_size: int = 1000
-    chunk_overlap: int = 150
+    pdf_path: str = os.getenv("PDF_PATH", "src/datasets/kodeks.pdf")
+    vector_store_path: str = os.getenv("VECTOR_STORE_PATH", "src/vectordb")
+    embedding_model: str = os.getenv("EMBEDDING_MODEL", "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2")
+    chunk_size: int = int(os.getenv("CHUNK_SIZE", "1000"))
+    chunk_overlap: int = int(os.getenv("CHUNK_OVERLAP", "150"))
 
 def load_pdf(config: RAGConfig) -> List[Document]:
     logger.info("Загрузка PDF")
